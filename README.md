@@ -29,20 +29,28 @@ Your request
 
 ## Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/gridi-ai/crew.git
+### Via Plugin Marketplace (Recommended)
 
-# Use as a Claude Code plugin
-claude --plugin-dir /path/to/crew
+```bash
+# 1. Add the marketplace
+/plugin marketplace add gridi-ai/crew
+
+# 2. Install the plugin
+/plugin install crew@crew
 ```
 
-Or add to your Claude Code settings:
+Or use the interactive UI:
 
-```json
-{
-  "plugins": ["https://github.com/gridi-ai/crew"]
-}
+```
+/plugin → Marketplaces → Add → gridi-ai/crew → Discover → Install
+```
+
+### Manual Installation
+
+```bash
+# Clone and use directly
+git clone https://github.com/gridi-ai/crew.git
+claude --plugin-dir /path/to/crew
 ```
 
 ## Quick Start
