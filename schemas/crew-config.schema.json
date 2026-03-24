@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/gridi-ai/crew/main/schemas/crew-config.schema.json",
+  "$id": "https://raw.githubusercontent.com/gridi-ai/gridi-skills/main/schemas/crew-config.schema.json",
   "title": "Crew Config",
   "description": "Configuration file for Crew AI development workflow plugin",
   "type": "object",

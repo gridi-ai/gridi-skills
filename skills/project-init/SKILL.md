@@ -31,8 +31,8 @@ Analyzes project environment and generates `crew-config.json` before starting th
 > ```
 > What language would you like Crew to use for documents and communication?
 > - (1) English (default)
-> - (2) 한국어
-> - (3) 日本語
+> - (2) Korean
+> - (3) Japanese
 > - (4) Other (specify)
 > ```
 >
@@ -222,7 +222,7 @@ After analysis or interactive setup, generate `crew-config.json` at the project 
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/gridi-ai/crew/main/schemas/crew-config.schema.json",
+  "$schema": "https://raw.githubusercontent.com/gridi-ai/gridi-skills/main/schemas/crew-config.schema.json",
   "version": "1.0.0",
   "preferences": {
     "language": "en"

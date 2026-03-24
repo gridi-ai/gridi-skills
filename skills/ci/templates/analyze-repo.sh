@@ -256,7 +256,7 @@ cat > "$OUTPUT_DIR/commit-template.md" << 'EOF'
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
 ## Examples
@@ -269,7 +269,7 @@ feat(auth): add JWT authentication
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 EOF
 

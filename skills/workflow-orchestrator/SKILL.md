@@ -416,7 +416,7 @@ git commit -m "feat({backlog-keyword}): {description}
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
+Co-Authored-By: Claude <noreply@anthropic.com>"
 
 # 3. Push to remote
 git push origin feature/{backlog-keyword}
@@ -1436,7 +1436,7 @@ console.log("✅ Phase 4 complete");
 
 ## References
 
-- **Agent Teams Documentation**: https://code.claude.com/docs/ko/agent-teams
+- **Agent Teams Documentation**: https://code.claude.com/docs/en/agent-teams
 - **Backlog Decomposition Skill**: [${CREW_SKILLS}/backlog-decomposer/SKILL.md](${CREW_SKILLS}/backlog-decomposer/SKILL.md)
 - CI Skill: [${CREW_SKILLS}/ci/SKILL.md](${CREW_SKILLS}/ci/SKILL.md)
 - DevOps Skill: [${CREW_SKILLS}/devops/SKILL.md](${CREW_SKILLS}/devops/SKILL.md)
