@@ -2,7 +2,7 @@
 name: product-designer
 description: >
   A skill for generating design spec documents and Figma designs based on user stories, wireframes, and tech specs.
-  design-spec.md is always generated, and Figma designs via Figma MCP must be generated when MCP connection is available.
+  design-spec.md is always generated, and Figma designs via cursor-talk-to-figma-mcp must be generated when MCP connection is available.
   Use this skill for UI design generation or Figma integration work requests.
 ---
 
@@ -127,13 +127,13 @@ Read the file contents and **strictly follow** these items:
 
 Use the default design system, but clearly document the values used in design-spec.md.
 
-# Product Designer (Figma MCP)
+# Product Designer (cursor-talk-to-figma-mcp)
 
 Analyzes user stories, wireframes, and tech specs to generate designs directly in Figma.
 
 ## ⚠️ Auto-Layout Required Principle (Figma-Specific)
 
-> This principle applies specifically to Figma design generation using the Figma MCP tool. It is not a universal design principle.
+> This principle applies specifically to Figma design generation using the cursor-talk-to-figma-mcp tool. It is not a universal design principle.
 
 **Auto-Layout must be applied to every Figma frame created.** Positioning elements with absolute coordinates (x, y) is prohibited.
 
@@ -246,7 +246,7 @@ mcp__TalkToFigma__set_axis_align({
 
 ## Prerequisites
 
-### Installing Figma MCP
+### Installing cursor-talk-to-figma-mcp
 
 1. **Install Bun** (if not installed):
 ```bash
@@ -255,12 +255,12 @@ curl -fsSL https://bun.sh/install | bash
 
 2. **Register MCP server** (Claude Code):
 ```bash
-claude mcp add "TalkToFigma" -s local -- ~/.bun/bin/bunx Figma MCP@latest
+claude mcp add "TalkToFigma" -s local -- ~/.bun/bin/bunx cursor-talk-to-figma-mcp@latest
 ```
 
 3. **Install Figma plugin**:
    - Install the "Cursor Talk to Figma MCP" plugin from Figma Community
-   - https://www.figma.com/community/plugin/1485687494525374295/Figma MCP-plugin
+   - https://www.figma.com/community/plugin/1485687494525374295/cursor-talk-to-figma-mcp-plugin
    - Or local development: Plugins > Development > Import plugin from manifest
 
 > **WebSocket server starts automatically**: When this skill runs, the WebSocket server (port 3055) starts automatically in the background. No need to run it separately in a terminal.
@@ -529,7 +529,7 @@ Content to include in the document:
 - List of screens and their nodeIds
 - Design tokens (CSS Variables)
 
-## MCP Tool List (Figma MCP tool)
+## MCP Tool List (grab/cursor-talk-to-figma-mcp)
 
 ### Connection Tools
 | Tool | Description |
@@ -809,10 +809,10 @@ The design specification document has been generated.
 
 📄 File: docs/{backlog-keyword}/design-spec.md
 
-To also generate Figma designs, Figma MCP setup is required.
+To also generate Figma designs, cursor-talk-to-figma-mcp setup is required.
 Setup instructions:
 1. Install Bun: curl -fsSL https://bun.sh/install | bash
-2. Register MCP: claude mcp add "TalkToFigma" -s local -- ~/.bun/bin/bunx Figma MCP@latest
+2. Register MCP: claude mcp add "TalkToFigma" -s local -- ~/.bun/bin/bunx cursor-talk-to-figma-mcp@latest
 3. Install Figma plugin: https://www.figma.com/community/plugin/1485687494525374295
 
 After setup is complete, run again to additionally generate the Figma design.
@@ -833,7 +833,7 @@ lsof -i :3055 | grep LISTEN
 
 ```
 Bash(
-  command: "~/.bun/bin/bun run ~/.claude/Figma MCP/src/socket.ts",
+  command: "~/.bun/bin/bun run ~/.claude/cursor-talk-to-figma-mcp/src/socket.ts",
   description: "Start Figma WebSocket server",
   run_in_background: true
 )
@@ -897,4 +897,4 @@ After completing Figma design generation, add the following information to desig
 
 - Component guide: [references/component-guide.md](references/component-guide.md)
 - Accessibility guide: [references/accessibility-guide.md](references/accessibility-guide.md)
-- Figma MCP repository: https://github.com/Figma MCP tool
+- cursor-talk-to-figma-mcp repository: https://github.com/grab/cursor-talk-to-figma-mcp

@@ -31,8 +31,8 @@ Analyzes project environment and generates `crew-config.json` before starting th
 > ```
 > What language would you like Crew to use for documents and communication?
 > - (1) English (default)
-> - (2) Korean
-> - (3) Japanese
+> - (2) 한국어
+> - (3) 日本語
 > - (4) Other (specify)
 > ```
 >
