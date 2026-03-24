@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/gridi-ai/crew/main/schemas/crew-config.schema.json",
+  "title": "Crew Config",
+  "description": "Configuration file for Crew AI development workflow plugin",
+  "type": "object",
+  "required": ["version", "project"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string",
+          "description": "Output language for documents and communication (ISO 639-1 code)",
+          "examples": ["en", "ko", "ja", "fr", "de", "zh", "es"],
+          "default": "en"
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["fullstack", "backend-only", "frontend-only", "monorepo"]
+        },
+        "monorepo": { "type": "boolean", "default": false }
+      }
+    },
+    "backend": {
+      "type": "object",
+      "properties": {
+        "framework": {
+          "type": "string",
+          "enum": ["nestjs", "express", "fastapi", "django", "spring-boot", "gin", "echo"]
+        },
+        "language": {
+          "type": "string",
+          "enum": ["typescript", "javascript", "python", "java", "go"]
+        },
+        "orm": {
+          "type": "string",
+          "enum": ["prisma", "typeorm", "sequelize", "sqlalchemy", "gorm", "spring-data-jpa"]
+        },
+        "testFramework": {
+          "type": "string",
+          "enum": ["jest", "vitest", "mocha", "pytest", "junit", "go-test"]
+        },
+        "apiStyle": {
+          "type": "string",
+          "enum": ["rest", "graphql"],
+          "default": "rest"
+        }
+      }
+    },
+    "frontend": {
+      "type": "object",
+      "properties": {
+        "framework": {
+          "type": "string",
+          "enum": ["nextjs", "react-vite", "vue3-vite", "svelte", "angular"]
+        },
+        "language": {
+          "type": "string",
+          "enum": ["typescript", "javascript"]
+        },
+        "styling": {
+          "type": "string",
+          "enum": ["tailwindcss", "styled-components", "css-modules", "scss"]
+        },
+        "stateManagement": {
+          "type": "string",
+          "enum": ["zustand", "redux", "recoil", "pinia", "none"]
+        },
+        "testFramework": {
+          "type": "string",
+          "enum": ["vitest", "jest", "testing-library"]
+        }
+      }
+    },
+    "database": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["postgresql", "mysql", "sqlite", "mongodb"]
+        },
+        "orm": { "type": "string" }
+      }
+    },
+    "conventions": {
+      "type": "object",
+      "properties": {
+        "idStrategy": {
+          "type": "string",
+          "enum": ["uuid", "auto-increment", "ulid", "nanoid"],
+          "default": "uuid"
+        },
+        "i18n": { "type": "boolean", "default": true },
+        "commitConvention": {
+          "type": "string",
+          "enum": ["conventional", "freeform"],
+          "default": "conventional"
+        },
+        "branchStrategy": {
+          "type": "string",
+          "enum": ["feature-branch", "trunk-based"],
+          "default": "feature-branch"
+        },
+        "cssNaming": { "type": "string" }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "properties": {
+        "packageManager": {
+          "type": "string",
+          "enum": ["npm", "yarn", "pnpm", "pip", "poetry"]
+        },
+        "linter": { "type": "string" },
+        "formatter": { "type": "string" },
+        "containerization": {
+          "type": "string",
+          "enum": ["docker-compose", "docker", "none"]
+        },
+        "ci": {
+          "type": "string",
+          "enum": ["github-actions", "gitlab-ci", "none"]
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "properties": {
+        "figma": { "type": "boolean", "default": false },
+        "playwright": { "type": "boolean", "default": true }
+      }
+    },
+    "detectedAt": { "type": "string", "format": "date-time" },
+    "detectionMode": {
+      "type": "string",
+      "enum": ["auto", "manual", "preset"]
+    }
+  }
+}

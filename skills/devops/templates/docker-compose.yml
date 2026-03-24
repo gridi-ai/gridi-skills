@@ -1,0 +1,124 @@
+# Docker Compose Template
+# DevOps Skill - Modify to fit your project
+
+version: '3.8'
+
+services:
+  # ============================================
+  # Backend API (Node.js/NestJS)
+  # ============================================
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: app-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PYTHON_SERVICE_URL=http://python-service:8001
+    depends_on:
+      python-service:
+        condition: service_healthy
+      # postgres:
+      #   condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # ============================================
+  # Python Microservice
+  # ============================================
+  python-service:
+    build:
+      context: ./python-service
+      dockerfile: Dockerfile
+    container_name: app-python-service
+    ports:
+      - "8001:8001"
+    environment:
+      - LOG_LEVEL=INFO
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  # ============================================
+  # Frontend (Next.js) - Optional
+  # ============================================
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: app-frontend
+  #   ports:
+  #     - "3001:3000"
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://backend:3000
+  #   depends_on:
+  #     - backend
+  #   restart: unless-stopped
+  #   networks:
+  #     - app-network
+
+  # ============================================
+  # PostgreSQL Database - Optional
+  # ============================================
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: app-postgres
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     - POSTGRES_USER=${DB_USER:-postgres}
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+  #     - POSTGRES_DB=${DB_NAME:-app}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   restart: unless-stopped
+  #   networks:
+  #     - app-network
+
+  # ============================================
+  # Redis Cache - Optional
+  # ============================================
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: app-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   restart: unless-stopped
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:
+#   redis_data:

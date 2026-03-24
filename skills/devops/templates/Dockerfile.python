@@ -1,0 +1,43 @@
+# Python FastAPI Application Dockerfile Template
+# DevOps Skill - Modify to fit your project
+
+FROM python:3.11-slim
+
+# Metadata
+LABEL maintainer="DevOps Skill"
+LABEL description="Python FastAPI Application"
+
+# Working directory
+WORKDIR /app
+
+# System dependencies (add as needed)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies (leveraging cache)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY app/ ./app/
+
+# Environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PORT=8000
+
+# Expose port
+EXPOSE 8000
+
+# Security: non-root user
+RUN useradd --create-home --shell /bin/bash appuser
+RUN chown -R appuser:appuser /app
+USER appuser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

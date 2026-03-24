@@ -1,0 +1,311 @@
+#!/bin/bash
+# CI Skill - Repository Analysis Script
+# Analyzes commit rules, lint configuration, and CI/CD pipelines for the repository.
+
+set -e
+
+# Color definitions
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+print_header() {
+    echo -e "\n${BLUE}=== $1 ===${NC}\n"
+}
+
+log_found() {
+    echo -e "  ${GREEN}✓${NC} $1"
+}
+
+log_not_found() {
+    echo -e "  ${YELLOW}○${NC} $1"
+}
+
+# Output directory
+OUTPUT_DIR=".claude"
+mkdir -p "$OUTPUT_DIR"
+
+echo -e "${BLUE}╔════════════════════════════════════════╗${NC}"
+echo -e "${BLUE}║     CI Skill - Repository Analyzer     ║${NC}"
+echo -e "${BLUE}╚════════════════════════════════════════╝${NC}"
+
+# ============================================
+# 1. Git Configuration Analysis
+# ============================================
+print_header "Git Configuration"
+
+# Check main branch
+MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main")
+log_found "Main branch: $MAIN_BRANCH"
+
+# Current branch
+CURRENT_BRANCH=$(git branch --show-current)
+log_found "Current branch: $CURRENT_BRANCH"
+
+# Remote repository
+REMOTE_URL=$(git remote get-url origin 2>/dev/null || echo "Not configured")
+log_found "Remote: $REMOTE_URL"
+
+# ============================================
+# 2. Commit Convention Analysis
+# ============================================
+print_header "Commit Convention Analysis"
+
+# Check commitlint configuration
+if [ -f "commitlint.config.js" ] || [ -f ".commitlintrc" ] || [ -f ".commitlintrc.json" ]; then
+    log_found "commitlint configuration found"
+    COMMIT_LINT="commitlint"
+else
+    log_not_found "commitlint not configured"
+    COMMIT_LINT="none"
+fi
+
+# Analyze recent commit patterns
+echo -e "\n  Recent commit patterns:"
+git log --oneline -20 | head -10 | while read line; do
+    echo "    $line"
+done
+
+# Extract commit types
+COMMIT_TYPES=$(git log --oneline -100 | grep -oE '^[a-f0-9]+ (feat|fix|docs|style|refactor|test|chore|perf|ci)' | awk '{print $2}' | sort | uniq -c | sort -rn)
+if [ -n "$COMMIT_TYPES" ]; then
+    echo -e "\n  Detected commit types:"
+    echo "$COMMIT_TYPES" | while read count type; do
+        echo "    $type: $count commits"
+    done
+fi
+
+# ============================================
+# 3. Lint Configuration Analysis
+# ============================================
+print_header "Lint Configuration"
+
+# ESLint
+if [ -f ".eslintrc.js" ] || [ -f ".eslintrc.json" ] || [ -f ".eslintrc.yml" ] || [ -f "eslint.config.js" ] || [ -f "eslint.config.mjs" ]; then
+    log_found "ESLint configured"
+    ESLINT="true"
+else
+    log_not_found "ESLint not configured"
+    ESLINT="false"
+fi
+
+# Prettier
+if [ -f ".prettierrc" ] || [ -f ".prettierrc.json" ] || [ -f ".prettierrc.js" ] || [ -f "prettier.config.js" ]; then
+    log_found "Prettier configured"
+    PRETTIER="true"
+else
+    log_not_found "Prettier not configured"
+    PRETTIER="false"
+fi
+
+# Python - Ruff
+if [ -f "ruff.toml" ] || [ -f "pyproject.toml" ] && grep -q "ruff" "pyproject.toml" 2>/dev/null; then
+    log_found "Ruff configured"
+    RUFF="true"
+else
+    log_not_found "Ruff not configured"
+    RUFF="false"
+fi
+
+# Python - Black
+if [ -f "pyproject.toml" ] && grep -q "black" "pyproject.toml" 2>/dev/null; then
+    log_found "Black configured"
+    BLACK="true"
+else
+    log_not_found "Black not configured"
+    BLACK="false"
+fi
+
+# Pre-commit
+if [ -f ".pre-commit-config.yaml" ]; then
+    log_found "Pre-commit hooks configured"
+    PRECOMMIT="true"
+else
+    log_not_found "Pre-commit not configured"
+    PRECOMMIT="false"
+fi
+
+# ============================================
+# 4. Test Configuration Analysis
+# ============================================
+print_header "Test Configuration"
+
+# Check package.json scripts
+if [ -f "package.json" ]; then
+    echo -e "  npm scripts:"
+    cat package.json | grep -A 20 '"scripts"' | grep -E '^\s+"(test|lint|build|format)' | head -10 | while read line; do
+        echo "    $line"
+    done
+fi
+
+# Check pytest configuration
+if [ -f "pytest.ini" ] || [ -f "pyproject.toml" ] && grep -q "pytest" "pyproject.toml" 2>/dev/null; then
+    log_found "pytest configured"
+fi
+
+# ============================================
+# 5. CI/CD Analysis
+# ============================================
+print_header "CI/CD Configuration"
+
+# GitHub Actions
+if [ -d ".github/workflows" ]; then
+    log_found "GitHub Actions found:"
+    ls -1 .github/workflows/*.yml .github/workflows/*.yaml 2>/dev/null | while read file; do
+        echo "    - $(basename $file)"
+    done
+else
+    log_not_found "GitHub Actions not configured"
+fi
+
+# ============================================
+# 6. Save Results
+# ============================================
+print_header "Generating Repository Rules"
+
+cat > "$OUTPUT_DIR/repo-rules.md" << EOF
+# Repository Rules
+
+> This file was auto-generated by the CI Skill on $(date +"%Y-%m-%d %H:%M:%S").
+
+## Git Configuration
+
+| Item | Value |
+|------|-------|
+| Main Branch | \`$MAIN_BRANCH\` |
+| Remote | \`$REMOTE_URL\` |
+
+### Branch Strategy
+- **Main Branch**: \`$MAIN_BRANCH\`
+- **Feature Branch**: \`feature/{backlog-keyword}\`
+- **Bugfix Branch**: \`bugfix/{issue-id}\`
+
+## Commit Convention
+
+### Format
+\`\`\`
+<type>(<scope>): <subject>
+\`\`\`
+
+### Types
+| Type | Description |
+|------|-------------|
+| \`feat\` | New feature |
+| \`fix\` | Bug fix |
+| \`docs\` | Documentation update |
+| \`style\` | Code style change |
+| \`refactor\` | Code refactoring |
+| \`test\` | Add/update tests |
+| \`chore\` | Build or config change |
+
+## Lint Configuration
+
+| Tool | Status |
+|------|--------|
+| ESLint | $( [ "$ESLINT" = "true" ] && echo "✅ Configured" || echo "❌ Not configured" ) |
+| Prettier | $( [ "$PRETTIER" = "true" ] && echo "✅ Configured" || echo "❌ Not configured" ) |
+| Ruff | $( [ "$RUFF" = "true" ] && echo "✅ Configured" || echo "❌ Not configured" ) |
+| Black | $( [ "$BLACK" = "true" ] && echo "✅ Configured" || echo "❌ Not configured" ) |
+| Pre-commit | $( [ "$PRECOMMIT" = "true" ] && echo "✅ Configured" || echo "❌ Not configured" ) |
+
+## Commands
+
+### Lint
+\`\`\`bash
+$( [ "$ESLINT" = "true" ] && echo "npm run lint" )
+$( [ "$PRETTIER" = "true" ] && echo "npm run format" )
+$( [ "$RUFF" = "true" ] && echo "ruff check ." )
+$( [ "$BLACK" = "true" ] && echo "black ." )
+\`\`\`
+
+### Test
+\`\`\`bash
+npm test
+pytest
+\`\`\`
+
+### Build
+\`\`\`bash
+npm run build
+\`\`\`
+
+## CI Checks Required
+- [ ] Lint pass
+- [ ] Tests pass
+- [ ] Build success
+
+## PR Guidelines
+
+### Merge Strategy
+- **Squash Merge**: feature → $MAIN_BRANCH
+EOF
+
+log_found "Generated: $OUTPUT_DIR/repo-rules.md"
+
+# Generate commit template
+cat > "$OUTPUT_DIR/commit-template.md" << 'EOF'
+# Commit Message Template
+
+## Format
+```
+<type>(<scope>): <subject>
+
+<body>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+```
+
+## Examples
+```
+feat(auth): add JWT authentication
+
+- Implement JWT token generation
+- Add token validation middleware
+- Create refresh token logic
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+```
+EOF
+
+log_found "Generated: $OUTPUT_DIR/commit-template.md"
+
+# Generate PR template
+cat > "$OUTPUT_DIR/pr-template.md" << 'EOF'
+# PR Template
+
+## Title Format
+```
+<type>(<scope>): <description>
+```
+
+## Body Template
+```markdown
+## Summary
+- {1-3 line summary}
+
+## Changes
+- {Specific changes made}
+
+## Test Plan
+- {How to test}
+
+## Checklist
+- [ ] Code review requested
+- [ ] Tests added/updated
+- [ ] Documentation updated
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+```
+EOF
+
+log_found "Generated: $OUTPUT_DIR/pr-template.md"
+
+echo -e "\n${GREEN}✅ Repository analysis complete!${NC}"
+echo -e "Generated files in ${BLUE}$OUTPUT_DIR/${NC}:"
+ls -1 "$OUTPUT_DIR"/*.md

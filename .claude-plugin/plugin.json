@@ -1,0 +1,23 @@
+{
+  "name": "crew",
+  "version": "1.0.0",
+  "description": "AI-powered full-stack development workflow orchestrator. From backlog to deployment, Crew manages the entire SDLC with specialized AI agents for planning, design, implementation, QA, and CI/CD.",
+  "author": {
+    "name": "GRIDI AI",
+    "url": "https://github.com/gridi-ai"
+  },
+  "repository": "https://github.com/gridi-ai/crew",
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "orchestrator",
+    "fullstack",
+    "sdlc",
+    "ai-agents",
+    "devops",
+    "ci-cd",
+    "tdd",
+    "lovable"
+  ],
+  "skills": "./skills/"
+}
