@@ -1,0 +1,1 @@
+../../../agents/qa-visual-tester.md

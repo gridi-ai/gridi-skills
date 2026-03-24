@@ -113,6 +113,11 @@
           "enum": ["feature-branch", "trunk-based"],
           "default": "feature-branch"
         },
+        "contractDriven": {
+          "type": "boolean",
+          "description": "Enable Contract Driven Development — OpenAPI spec as single source of truth with type/client generation for both backend and frontend",
+          "default": true
+        },
         "cssNaming": { "type": "string" }
       }
     },

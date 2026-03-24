@@ -957,6 +957,18 @@ const data: UserData = fetchData();
 
 > **Note**: Examples shown throughout this document are for React/Next.js with Tailwind CSS. Adapt to your framework per `crew-config.json → frontend.framework`.
 
+## Framework-Specific References
+
+Consult the reference that matches your project's `crew-config.json → frontend.framework`:
+
+| Framework | Reference |
+|-----------|-----------|
+| Next.js | [references/nextjs-patterns.md](references/nextjs-patterns.md) |
+| React + Vite | [references/react-vite-patterns.md](references/react-vite-patterns.md) |
+| Vue 3 | [references/vue-patterns.md](references/vue-patterns.md) |
+| Svelte/SvelteKit | [references/svelte-patterns.md](references/svelte-patterns.md) |
+| Angular | [references/angular-patterns.md](references/angular-patterns.md) |
+
 ## References
 
 - Component guide: [references/component-patterns.md](references/component-patterns.md)

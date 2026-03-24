@@ -192,6 +192,30 @@ If the user types "default", "recommended", or similar, apply the recommended pr
 }
 ```
 
+## Recommended Defaults
+
+When the user doesn't specify preferences or selects "recommended", apply these defaults:
+
+### Stack
+| Component | Default | Why |
+|-----------|---------|-----|
+| Backend | NestJS (TypeScript) | Mature DI, decorators, excellent TS support |
+| Frontend | Next.js (React) | SSR/SSG, App Router, large ecosystem |
+| Database | PostgreSQL | ACID, JSON support, widely deployed |
+| ORM | Prisma | Type-safe, excellent DX, auto migrations |
+| Styling | Tailwind CSS | Utility-first, fast iteration, no CSS-in-JS runtime |
+| State | Zustand | Minimal boilerplate, TS-native |
+| Package Manager | pnpm | Fast, disk-efficient, strict |
+| ID Strategy | UUID | Distributed-safe, no DB dependency |
+
+### Convention Defaults
+| Convention | Default | Why |
+|-----------|---------|-----|
+| Contract Driven Development | **Enabled** | Type-safe API integration, catches contract mismatches at compile time |
+| i18n | Enabled | Ready for localization from day one |
+| Commit Convention | Conventional Commits | Enables auto-changelog and semantic versioning |
+| Branch Strategy | Feature Branch | Clean PR-based workflow |
+
 ## Output: crew-config.json
 
 After analysis or interactive setup, generate `crew-config.json` at the project root.
@@ -230,6 +254,7 @@ After analysis or interactive setup, generate `crew-config.json` at the project 
     "idStrategy": "uuid",
     "i18n": true,
     "commitConvention": "conventional",
+    "contractDriven": true,
     "branchStrategy": "feature-branch",
     "cssNaming": "tailwind-utility"
   },
@@ -249,6 +274,20 @@ After analysis or interactive setup, generate `crew-config.json` at the project 
 }
 ```
 
+## Contract Driven Development (Default)
+
+When `conventions.contractDriven` is `true` (the default), all skills follow this pattern:
+
+1. **be-spec** writes the OpenAPI spec first
+2. **be-main** generates backend types from the spec and implements to satisfy the contract
+3. **fe-main** generates API client from the spec — no manual fetch/axios calls
+
+This ensures type-safe integration between backend and frontend.
+
+To disable: set `conventions.contractDriven: false` in crew-config.json.
+
+See: `be-spec/references/contract-driven-development.md` for details.
+
 ## How Skills Use crew-config.json
 
 All skills read `crew-config.json` and adapt their behavior accordingly:
@@ -265,6 +304,7 @@ All skills read `crew-config.json` and adapt their behavior accordingly:
 | ci | tools.ci, conventions.commitConvention | CI pipeline and commit rules |
 | devops | tools.containerization | Docker vs direct execution |
 | product-designer | integrations.figma | Figma MCP availability |
+| be-spec, be-main, fe-main | conventions.contractDriven | Enable/disable OpenAPI-based type and client generation |
 
 ## Reconfiguration
 

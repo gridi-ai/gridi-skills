@@ -536,3 +536,16 @@ console.log(unusedVar);
 
 - Architecture guide: [references/architecture-guide.md](references/architecture-guide.md)
 - Security guide: [references/security-guide.md](references/security-guide.md)
+
+## Framework-Specific References
+
+Consult the reference that matches your project's `crew-config.json → backend.framework`:
+
+| Framework | Reference |
+|-----------|-----------|
+| NestJS | [references/nestjs-patterns.md](references/nestjs-patterns.md) |
+| Express | [references/express-patterns.md](references/express-patterns.md) |
+| FastAPI | [references/fastapi-patterns.md](references/fastapi-patterns.md) |
+| Django | [references/django-patterns.md](references/django-patterns.md) |
+| Spring Boot | [references/spring-boot-patterns.md](references/spring-boot-patterns.md) |
+| Gin | [references/gin-patterns.md](references/gin-patterns.md) |
