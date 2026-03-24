@@ -6,7 +6,7 @@ From backlog to deployment — Crew orchestrates 18 specialized AI agents across
 
 ## What is Crew?
 
-Crew is a Claude Code plugin that turns a single prompt like **"쇼핑몰 만들어줘"** (Build me a shopping mall) into a fully working application through an automated pipeline:
+Crew is a Claude Code plugin that turns a single prompt like **"Build me a shopping mall"** into a fully working application through an automated pipeline:
 
 ```
 Your request
@@ -50,13 +50,13 @@ Or add to your Claude Code settings:
 ### 1. Start a workflow
 
 ```
-/crew:workflow-orchestrator 회원가입 기능 개발해줘
+/crew:workflow-orchestrator Build a user registration feature
 ```
 
 Or for a full application:
 
 ```
-/crew:workflow-orchestrator 쇼핑몰 만들어줘
+/crew:workflow-orchestrator Build me a shopping mall
 ```
 
 ### 2. First run: Project Init
@@ -194,9 +194,9 @@ Crew auto-detects the user's language from the initial prompt:
 
 | Input | Detected |
 |-------|----------|
-| `Build a shopping mall` | `en` |
-| `쇼핑몰 만들어줘` | `ko` |
-| `ECサイトを作って` | `ja` |
+| `Build a shopping mall` (English) | `en` |
+| `쇼핑몰 만들어줘` (Korean) | `ko` |
+| `ECサイトを作って` (Japanese) | `ja` |
 
 All generated documents, communication, and outputs follow `preferences.language`. If no language is detected, Crew asks the user to choose.
 
