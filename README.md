@@ -6,7 +6,7 @@ AI-powered development skill marketplace for [Claude Code](https://claude.com/cl
 
 | Plugin | Description | |
 |--------|-------------|-|
-| **crew** | Full-stack workflow orchestrator — backlog to deployment (18 skills) | [README →](./plugins/crew/README.md) |
+| **crew** | Your own product team — solopreneurs get a full dev team from backlog to deployment (18 skills) | [README →](./plugins/crew/README.md) |
 | **code-review** | Backend & frontend code review with architecture, security, and performance checklists (2 skills) | [README →](./plugins/code-review/README.md) |
 | **qa-suite** | QA automation — test case generation, Playwright E2E, visual testing (3 skills) | [README →](./plugins/qa-suite/README.md) |
 | **api-builder** | Backend API development with TDD — tech spec to implementation (5 skills) | [README →](./plugins/api-builder/README.md) |

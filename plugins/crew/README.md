@@ -1,6 +1,8 @@
 # crew
 
-Full-stack development workflow orchestrator. Turns a single prompt like **"Build me a shopping mall"** into a fully working application through an automated pipeline.
+Your own product team, powered by AI. Even as a solo founder or solopreneur, Crew gives you a full development team — product manager, tech lead, designers, backend and frontend developers, QA engineers, and DevOps — all working together through an automated pipeline.
+
+Turns a single prompt like **"Build me a shopping mall"** into a fully working application, from backlog to deployment.
 
 ## Installation
 
