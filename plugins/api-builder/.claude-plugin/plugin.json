@@ -1,0 +1,9 @@
+{
+  "name": "api-builder",
+  "version": "1.0.0",
+  "description": "Backend API development — tech spec, OpenAPI spec, TDD tests, and API implementation.",
+  "author": { "name": "gridi.ai" },
+  "license": "MIT",
+  "keywords": ["backend", "api", "openapi", "tdd", "rest"],
+  "skills": "./skills/"
+}

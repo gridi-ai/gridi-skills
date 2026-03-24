@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-03-24
 
 ### Added
+- Marketplace structure with 4 plugins: crew, code-review, qa-suite, api-builder
 - Initial release of Crew plugin
 - 18 specialized AI agent skills for full-stack development workflow
 - `workflow-orchestrator`: Main orchestration skill managing the entire SDLC

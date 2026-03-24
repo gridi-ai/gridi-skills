@@ -1,0 +1,9 @@
+{
+  "name": "crew",
+  "version": "1.0.0",
+  "description": "Full-stack development workflow orchestrator. 18 AI agents from backlog to deployment.",
+  "author": { "name": "gridi.ai" },
+  "license": "MIT",
+  "keywords": ["workflow", "orchestrator", "fullstack", "sdlc", "ai-agents", "tdd"],
+  "skills": "./skills/"
+}

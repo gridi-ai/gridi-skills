@@ -1,0 +1,9 @@
+{
+  "name": "qa-suite",
+  "version": "1.0.0",
+  "description": "QA automation — test case generation, Playwright E2E tests, and visual QA testing.",
+  "author": { "name": "gridi.ai" },
+  "license": "MIT",
+  "keywords": ["qa", "testing", "e2e", "playwright", "visual-testing"],
+  "skills": "./skills/"
+}

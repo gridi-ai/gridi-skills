@@ -1,0 +1,9 @@
+{
+  "name": "code-review",
+  "version": "1.0.0",
+  "description": "Backend and frontend code review with architecture, security, and performance checklists.",
+  "author": { "name": "gridi.ai" },
+  "license": "MIT",
+  "keywords": ["code-review", "architecture", "security", "performance"],
+  "skills": "./skills/"
+}

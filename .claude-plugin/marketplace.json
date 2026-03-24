@@ -1,11 +1,29 @@
 {
-  "name": "crew",
+  "name": "gridi-skills",
   "owner": { "name": "gridi.ai" },
   "plugins": [
     {
       "name": "crew",
-      "source": ".",
-      "description": "AI-powered full-stack development workflow orchestrator. 18 specialized AI agents from backlog to deployment.",
+      "source": "./plugins/crew",
+      "description": "Full-stack development workflow orchestrator. 18 AI agents from backlog to deployment.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "code-review",
+      "source": "./plugins/code-review",
+      "description": "Backend and frontend code review with architecture, security, and performance checklists.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "qa-suite",
+      "source": "./plugins/qa-suite",
+      "description": "QA automation — test case generation, Playwright E2E tests, and visual QA testing.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "api-builder",
+      "source": "./plugins/api-builder",
+      "description": "Backend API development — tech spec, OpenAPI spec, TDD tests, and API implementation.",
       "version": "1.0.0"
     }
   ]
