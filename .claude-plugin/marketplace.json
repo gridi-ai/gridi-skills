@@ -1,0 +1,12 @@
+{
+  "name": "crew",
+  "owner": { "name": "gridi.ai" },
+  "plugins": [
+    {
+      "name": "crew",
+      "source": ".",
+      "description": "AI-powered full-stack development workflow orchestrator. 18 specialized AI agents from backlog to deployment.",
+      "version": "1.0.0"
+    }
+  ]
+}
