@@ -3,7 +3,7 @@ name: backlog-decomposer
 description: >
   A skill that decomposes broad implementation requests into multiple independent backlog items.
   It transforms high-level requests like "Build me a shopping mall" into a prioritized backlog list based on MVP.
-  Supports Lovable-style AI builder workflows.
+  Supports AI builder workflows for building full applications from a single prompt.
 ---
 
 ## 🌐 Language

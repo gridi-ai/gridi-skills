@@ -4,7 +4,7 @@ description: >
   The main skill that orchestrates the entire development workflow. Manages the full process
   from backlog to deployment, invokes each agent in the proper order, and manages review
   points with the PO. Integrates with CI/DevOps skills to automate branch management,
-  deployment, and environment configuration. Supports Lovable-style AI builder workflows.
+  deployment, and environment configuration. Supports AI builder workflows for building full applications from a single prompt.
 ---
 
 ## 🌐 Language
@@ -215,7 +215,7 @@ Orchestrates the entire development workflow from backlog to deployment.
 ```
 → Start directly from Phase 0
 
-### Mode B: Comprehensive Implementation Request (Lovable Style)
+### Mode B: Comprehensive Implementation Request (Full App Builder)
 ```
 "Build me a shopping mall"
 "Develop a blog platform"
@@ -230,7 +230,7 @@ Orchestrates the entire development workflow from backlog to deployment.
 | Single Backlog | Specific feature, single domain | "Login feature", "Comment feature" |
 | Comprehensive Request | Entire product/service, multi-domain | "Build me XX", "XX platform" |
 
-## Lovable-Style Workflow
+## Full App Builder Workflow
 
 Full flow for comprehensive requests:
 
