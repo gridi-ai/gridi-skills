@@ -1,6 +1,6 @@
 # gridi-skills
 
-AI-powered development skill marketplace for [Claude Code](https://claude.com/claude-code) by [gridi.ai](https://github.com/gridi-ai).
+AI-powered development skill marketplace for [Claude Code](https://claude.com/claude-code) by [gridi.ai](https://app.gridi.ai).
 
 ## Plugins
 
